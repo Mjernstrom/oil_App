@@ -1,17 +1,118 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
+<!--
+<ion-app>
+  <ion-menu content-id="main-content">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Calculations</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item button>
+            <ion-label>
+              1.   Well Parameters
+            </ion-label>
+          </ion-item>
+          <ion-item button>
+            <ion-label>
+              2.   Option 1: Enter height of cement
+            </ion-label>
+          </ion-item>
+          <ion-item button>
+            <ion-label>
+              Option 2: Enter delta P required
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-page class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-toggle>
+            <ion-button>
+              <ion-icon slot="icon-only" name="menu"></ion-icon>
+            </ion-button>
+          </ion-menu-toggle>
+        </ion-buttons>
+        <ion-title>Header</ion-title>
+      </ion-toolbar>
+    </ion-header>
+<ion-menu-controller></ion-menu-controller>
+  -->
+<ion-header>
+  <ion-title class="wellParametersTitle" color="custom">
+     Well Parameters
+  </ion-title>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-content padding>
+  <ion-item class="wellParameters" color="custom">
+    <ion-label>Tubing OD/Wt. (in/ppf)</ion-label>
+    <ion-select #mySelectTubingOD [value]="currentTubingOD" [selectedText]="currentTubingOD"
+      (ionChange)="selectChangedTubing(mySelectTubingOD.value)">
+      <ion-select-option *ngFor="let tubingODs of tubingOD" (selected)="tubingODs === currentTubingOD">
+        {{ tubingODs }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="wellParameters" color="custom">
+    <ion-label position="stacked">Min. Restriction or Drift ID, (in)</ion-label>
+    <ion-input placeholder="Enter Here"></ion-input>
+  </ion-item>
+  <ion-item class="wellParameters" color="custom">
+    <ion-label>Casing OD/Wt. (in/ppf)</ion-label>
+    <ion-select #mySelectCasingOD [value]="currentCasingOD" [selectedText]="currentCasingOD"
+      (ionChange)="selectChangedCasing(mySelectCasingOD.value)">
+      <ion-select-option *ngFor="let casingODs of casingOD" (selected)="casingODs === currentCasingOD">
+        {{ casingODs }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="wellParameters" color="custom">
+    <ion-label position="stacked">Well Deviation (degrees)</ion-label>
+    <ion-input placeholder="Enter Here"></ion-input>
+  </ion-item>
+  <ion-item class="wellParameters" color="custom">
+    <ion-label position="stacked">Time @ Surface; Rig up, and Riser test (min)</ion-label>
+    <ion-input placeholder="Enter Here"></ion-input>
+  </ion-item>
+  <ion-item class="wellParameters" color="custom">
+    <ion-label>Gravity Bailer OD(in)</ion-label>
+    <ion-select #mySelectGrav [value]="currentBailSize" [selectedText]="currentBailSize"
+      (ionChange)="selectChangedGravBail(mySelectGrav.value)">
+      <ion-select-option *ngFor="let bailSize of bailSizes" (selected)="bailSize === currentBailSize">
+        {{ bailSize }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="wellParameters" color="custom">
+    <ion-label position="stacked">Bailer Length(ft)</ion-label>
+    <ion-input placeholder="Enter Here"></ion-input>
+  </ion-item>
+  <ion-item class="wellParameters" color="custom">
+    <ion-label position="stacked">BHT (degrees of F)</ion-label>
+    <ion-input placeholder="Enter Here"></ion-input>
+  </ion-item>
+  <ion-item class="wellParameters" color="custom">
+    <ion-label position="stacked">Plug Setting Depth (ft)</ion-label>
+    <ion-input placeholder="Enter Here"></ion-input>
+  </ion-item>
+  <ion-item class="wellParameters" color="custom">
+    <ion-label position="stacked">Wireline Run Speed (ft/min)</ion-label>
+    <ion-input placeholder="Enter Here"></ion-input>
+  </ion-item>
+  <ion-item class="options" color="custom">
+    <ion-label position="stacked">OPTION #1 - ENTER HEIGHT OF CEMENT TO BE PLACED TO DETERMINE ΔP</ion-label>
+    <ion-input placeholder="Enter Here"></ion-input>
+  </ion-item>
+  <ion-item class="options" color="custom">
+    <ion-label position="stacked">Option #2 - ENTER ΔP REQUIRED TO DETERMINE HEIGHT OF CEMENT REQUIRED</ion-label>
+    <ion-input placeholder="Enter Here"></ion-input>
+  </ion-item>
 </ion-content>
+
