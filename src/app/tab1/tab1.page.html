@@ -45,12 +45,12 @@
     </ion-header>
 <ion-menu-controller></ion-menu-controller>
   -->
-<ion-header>
-  <ion-title class="wellParametersTitle" color="custom">
-     Well Parameters
-  </ion-title>
-</ion-header>
 <ion-content padding>
+  <ion-header>
+    <ion-title class="wellParametersTitle" color="custom">
+      Well Parameters
+    </ion-title>
+  </ion-header>
   <ion-item class="wellParameters" color="custom">
     <ion-label>Tubing OD/Wt. (in/ppf)</ion-label>
     <ion-select #mySelectTubingOD [value]="currentTubingOD" [selectedText]="currentTubingOD"
@@ -92,7 +92,7 @@
   </ion-item>
   <ion-item class="wellParameters" color="custom">
     <ion-label position="stacked">Bailer Length(ft)</ion-label>
-    <ion-input placeholder="Enter Here"></ion-input>
+    <ion-input id="bailerLength" placeholder="Enter Here"></ion-input>
   </ion-item>
   <ion-item class="wellParameters" color="custom">
     <ion-label position="stacked">BHT (degrees of F)</ion-label>
@@ -111,8 +111,53 @@
     <ion-input placeholder="Enter Here"></ion-input>
   </ion-item>
   <ion-item class="options" color="custom">
-    <ion-label position="stacked">Option #2 - ENTER ΔP REQUIRED TO DETERMINE HEIGHT OF CEMENT REQUIRED</ion-label>
+    <ion-label position="stacked">OPTION #2 - ENTER ΔP REQUIRED TO DETERMINE HEIGHT OF CEMENT REQUIRED</ion-label>
     <ion-input placeholder="Enter Here"></ion-input>
   </ion-item>
+  <ion-list lines="none">
+    <ion-item class=resultsList color="custom">
+      <ion-button id="resultButton" shape="round" (click)="fetchTableValues()">Click here to get results</ion-button>
+    </ion-item>
+    <ion-item class=resultsList color="custom">
+      <ion-label position="stacked">Tubing Fill Height per Bailer Run (ft)</ion-label>
+        <ion-note class="notes">Value</ion-note>
+    </ion-item>
+    <ion-item class=resultsList color="custom">
+      <ion-label position="stacked">Tubing ID</ion-label>
+      <ion-note class="notes">Value</ion-note>
+    </ion-item>
+    <ion-item class=resultsList color="custom">
+      <ion-label position="stacked">Tubing Capacity (US Gal/ft)</ion-label>
+      <ion-note class="notes">Value</ion-note>
+    </ion-item>
+    <ion-item class=resultsList color="custom">
+      <ion-label position="stacked">Casing ID (in)</ion-label>
+      <ion-note class="notes">Value</ion-note>
+    </ion-item>
+    <ion-item class=resultsList color="custom">
+      <ion-label position="stacked">Casing Capacity (US Gal/ft)</ion-label>
+      <ion-note class="notes">Value</ion-note>
+    </ion-item>
+    <ion-item class=resultsList color="custom">
+      <ion-label position="stacked">Total Bailer Volume (US Gal/ft)</ion-label>
+      <ion-note class="notes">Value</ion-note>
+    </ion-item>
+    <ion-item class=resultsList color="custom">
+      <ion-label position="stacked">Casing Fill Height per Bailer Run (ft)</ion-label>
+      <ion-note class="notes">Value</ion-note>
+    </ion-item>
+    <ion-item class=resultsList color="custom">
+      <ion-label position="stacked">Cement Plug ΔP (psi)</ion-label>
+      <ion-note class="notes">Value</ion-note>
+    </ion-item>
+    <ion-item class=resultsList color="custom">
+      <ion-label position="stacked">Cement Height Required (ft)</ion-label>
+      <ion-note class="notes">Value</ion-note>
+    </ion-item>
+    <ion-item class=resultsList color="custom">
+      <ion-label position="stacked">Total Bailer Volume (US Gal/ft)</ion-label>
+      <ion-note class="notes">Value</ion-note>
+    </ion-item>
+  </ion-list>
 </ion-content>
 

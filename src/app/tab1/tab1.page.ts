@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CalculatorService } from '../calculator.service';
+//import { CalculatorService } from '../calculator.service';
 import { AlertController } from "@ionic/angular";
 
 @Component({
@@ -14,10 +14,82 @@ export class Tab1Page {
   public currentTubingOD: string;
   public casingOD: Array<string>;
   public currentCasingOD: string;
+  public gravBailTable: {};
+  public tubingTable = {};
+  public casingTable = {};
+  public results = {};
+  public dropdownInputsTable: Array<string>;
+  public bailerLength;
+  public driftID;
+  public wellDeviation;
+  public timeAtSurface;
+  public bht;
+  public plugSettingDepth;
+  public wirelineRunSpeed;
+  public cementHeightDumped;
+  public plugTestPressure;
+  //private calculatorService: CalculatorService;
 
   constructor(public alertController: AlertController) {}
 
+  // *******************PARAMETER LOGIC*******************
+
+
+  // Fetch corresponding table values for dropdown menu inputs
+  fetchTableValues() {
+    this.bailerLength = (<HTMLInputElement>document.getElementById('bailerLength')).value;
+    console.log(this.bailerLength);
+    // Put
+    for (let [key, value] of Object.entries(this.gravBailTable)) {
+      if (parseFloat(this.dropdownInputsTable[0]) === parseFloat(key)) {
+        console.log(this.gravBailTable[key]);
+      }
+    }
+  }
+
+  // *******************END PARAMETER LOGIC*******************
+
+  // Update results table and current selections
+  selectChangedGravBail(selectedBailSize) {
+    this.currentBailSize = selectedBailSize;
+    this.dropdownInputsTable[0] = this.currentBailSize;
+  }
+  selectChangedTubing(selectedTubingOD) {
+    this.currentTubingOD = selectedTubingOD;
+    this.dropdownInputsTable[1] = this.currentTubingOD;
+  }
+  selectChangedCasing(selectedCasingOD) {
+    this.currentCasingOD = selectedCasingOD;
+    this.dropdownInputsTable[2] = this.currentCasingOD;
+  }
+
+  // **********list of paramters and dictionaries of tables**********
   ngOnInit() {
+    // Initiate list for results displayed on the results section
+    this.results = [
+      /* 0 Tubing Fill Height per Bailer Run (ft): */ 0,
+      /* 1 Tubing ID (in): */ 0,
+      /* 2 Tubing Capacity (US Gal/ft)": */ 0,
+      /* 3 Casing ID (in)": */ 0,
+      /* 4 Casing Capacity (US Gal/ft)": */ 0,
+      /* 5 Total Bailer Volume (US Gal/ft)": */ 0,
+      /* 6 Casing Fill Height per Bailer Run (ft)": */ 0,
+      /* 7 Cement Plug ΔP (psi)": */ 0,
+      /* 8 Cement Height Required (ft)": */ 0,
+      /* 9 Cement Volume Required (Gals)": */ 0,
+      /* 10 Cement Dumped (If full Bailer)(Gals)": */ 0,
+      /* 11 Total Bailer Runs Required": */ 0,
+      /* 12 Cement Height (If full Bailers used)": */ 0,
+      /* 13 Inhole Per Run Operating Time": */ 0,
+      /* 14 Total Per Run Round Trip Time": */ 0,
+      /* 15 Total Bailing Round Trip Time": */ 0,
+    ];
+    // Initiate list for selected values from dropdown inputs
+    this.dropdownInputsTable = [];
+    // Set initial values for dropdown inputs
+    this.dropdownInputsTable[0] = this.currentBailSize = "1.000";
+    this.dropdownInputsTable[1] = this.currentTubingOD = '2.375" 4.70#';
+    this.dropdownInputsTable[2] = this.currentCasingOD = '4.500" 9.50#';
     this.bailSizes = [
       "1.000",
       "1.375",
@@ -32,8 +104,6 @@ export class Tab1Page {
       "4.000",
       "5.000",
     ];
-    this.currentBailSize = "1.000";
-
     this.tubingOD = [
       '2.375" 4.70#',
       '2.375" 5.95#',
@@ -49,8 +119,6 @@ export class Tab1Page {
       '4.500" 13.50#',
       '4.500" 15.50#',
     ];
-    this.currentTubingOD = '2.375" 4.70#';
-
     this.casingOD = [
       '4.500" 9.50#',
       '4.500" 10.50#',
@@ -132,15 +200,36 @@ export class Tab1Page {
       '20.000" 133.00#',
       '20.000" 169.00#',
     ];
-    this.currentCasingOD = '4.500" 9.50#';
-  }
-  selectChangedGravBail(selectedBailSize) {
-    this.currentBailSize = selectedBailSize;
-  }
-  selectChangedTubing(selectedTubingOD) {
-    this.currentTubingOD = selectedTubingOD;
-  }
-  selectChangedCasing(selectedCasingOD) {
-    this.currentCasingOD = selectedCasingOD;
+    // Tables
+    this.gravBailTable = {
+      "1.000": 0.033,
+      "1.375": 0.067,
+      "1.500": 0.072,
+      "1.625": 0.095,
+      "2.000": 0.137,
+      "2.125": 0.152,
+      "2.375": 0.185,
+      "2.625": 0.206,
+      "3.000": 0.315,
+      "3.500": 0.438,
+      "4.000": 0.587,
+      "5.000": 0.939,
+    };
+    this.tubingTable = {
+      '2.375" 4.70#': 1.995,
+      '2.375" 5.95#': 1.867,
+      '2.875" 6.50#': 2.441,
+      '2.875" 8.70#': 2.259,
+      '3.500" 9.30#': 2.992,
+      '3.500" 10.20#': 2.922,
+      '3.500" 12.95#': 2.75,
+      '4.000" 9.50#': 3.548,
+      '4.000" 11.00#': 3.476,
+      '4.000" 13.40#': 3.34,
+      '4.500" 12.75#': 3.958,
+      '4.500" 13.50#': 3.92,
+      '4.500" 15.50#': 3.826,
+    };
+    this.casingTable = {};
   }
 }

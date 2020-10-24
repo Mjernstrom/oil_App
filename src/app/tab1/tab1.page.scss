@@ -1,24 +1,40 @@
+* {
+    font-weight: bold;
+}
+ion-item {
+  --border-width: 0;
+  font-size: 20px;
+}
+
 .wellParameters {
-    background: rgb(131, 74, 20);
+    background: rgb(148, 37, 139);
     opacity: 0.7;
 }
 .wellParametersTitle {
     background: rgb(131, 74, 20);
     opacity: 0.7;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
 }
 .options {
     background: rgb(224, 138, 8);
     opacity: 0.7;
 }
-.results {
-    background: rgb(202, 114, 12);
+#resultsTitle{
+    background: rgb(223, 156, 81);
     opacity: 0.7;
+    text-align: center;
+    padding: 10px;
 }
-* {
-    font-weight: bold;
+.resultsList {
+    background: rgb(223, 156, 81);
+    opacity: 0.7;
+    font-size: 20px;
 }
-ion-item {
-  --border-width: 0;
+.notes {
+    font-size: 15px;
+    color: black;
+}
+#resultButton{
+   
 }
