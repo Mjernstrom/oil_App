@@ -34,23 +34,6 @@ export class CalculatorService {
     "4.500\" 13.50#":	3.920,
     "4.500\" 15.50#":	3.826
   };
-  // well parameter logic
-  fetchTables(gravBail) {
-    /*
-   for (let [key, value] of Object.entries(this.gravBailTable)) {
-      if (gravBail.valueof() == key.valueOf()){
-        return this.gravBailTable[key]
-      } else {
-        return "shit"
-      }
-    }
-    */
-  };
-  // Enter height of cement to be placed to determine delta p
-
-  // Enter required delta p to determine height of cement
-
-  // DUMP BAILER RUNS / JOB TIME REQUIREMENTS
-
+  
   constructor() { }
 }

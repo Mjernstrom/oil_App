@@ -7,17 +7,17 @@ ion-item {
 }
 
 .wellParameters {
-    background: rgb(148, 37, 139);
+    //background: rgb(34, 33, 34);
     opacity: 0.7;
 }
 .wellParametersTitle {
-    background: rgb(131, 74, 20);
+    background: rgb(56, 55, 56);
     opacity: 0.7;
     text-align: center;
     padding: 10px;
 }
 .options {
-    background: rgb(224, 138, 8);
+   // background: rgb(224, 138, 8);
     opacity: 0.7;
 }
 #resultsTitle{
@@ -27,13 +27,13 @@ ion-item {
     padding: 10px;
 }
 .resultsList {
-    background: rgb(223, 156, 81);
+    //background: rgb(223, 156, 81);
     opacity: 0.7;
     font-size: 20px;
 }
 .notes {
     font-size: 15px;
-    color: black;
+    color: rgb(255, 255, 255);
 }
 #resultButton{
    

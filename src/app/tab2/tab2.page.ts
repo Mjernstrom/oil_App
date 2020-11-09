@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Tab1Page } from '../tab1/tab1.page';
+import { AlertController } from "@ionic/angular";
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(public alertController: AlertController) {}
 
+  
 }

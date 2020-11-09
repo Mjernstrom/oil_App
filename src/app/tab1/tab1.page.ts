@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-//import { CalculatorService } from '../calculator.service';
 import { AlertController } from "@ionic/angular";
+const isEqual = require('lodash.isequal');
 
 @Component({
   selector: "app-tab1",
@@ -15,41 +15,39 @@ export class Tab1Page {
   public casingOD: Array<string>;
   public currentCasingOD: string;
   public gravBailTable: {};
-  public tubingTable = {};
-  public casingTable = {};
   public results = {};
   public dropdownInputsTable: Array<string>;
-  public bailerLength;
   public driftID;
   public wellDeviation;
   public timeAtSurface;
+  public bailerLength;
   public bht;
   public plugSettingDepth;
   public wirelineRunSpeed;
   public cementHeightDumped;
   public plugTestPressure;
-  //private calculatorService: CalculatorService;
+  public casingODvals;
+  public tubingTableVals: {};
+  public displayedResults = [];
 
   constructor(public alertController: AlertController) {}
-
-  // *******************PARAMETER LOGIC*******************
-
-
-  // Fetch corresponding table values for dropdown menu inputs
+  // **********************************INPUT CAPTURE AND DATA PREP ***********************************
+  
+  // Capture values from text-box inputs
   fetchTableValues() {
-    this.bailerLength = (<HTMLInputElement>document.getElementById('bailerLength')).value;
-    console.log(this.bailerLength);
-    // Put
-    for (let [key, value] of Object.entries(this.gravBailTable)) {
-      if (parseFloat(this.dropdownInputsTable[0]) === parseFloat(key)) {
-        console.log(this.gravBailTable[key]);
-      }
-    }
+    this.driftID = (<HTMLInputElement>document.getElementById("driftID")).value;
+    this.wellDeviation = (<HTMLInputElement>(document.getElementById("wellDeviation"))).value;
+    this.wellDeviation = parseInt(this.wellDeviation);
+    this.timeAtSurface = (<HTMLInputElement>(document.getElementById("timeAtSurface"))).value;
+    this.bailerLength = (<HTMLInputElement>(document.getElementById("bailerLength"))).value;
+    this.bht = (<HTMLInputElement>document.getElementById("bht")).value;
+    this.plugSettingDepth = (<HTMLInputElement>(document.getElementById("plugSettingDepth"))).value;
+    this.wirelineRunSpeed = (<HTMLInputElement>(document.getElementById("wirelineRunSpeed"))).value;
+    this.cementHeightDumped = (<HTMLInputElement>(document.getElementById("cementHeightDumped"))).value;
+    this.plugTestPressure = (<HTMLInputElement>(document.getElementById("plugTestPressure"))).value;
+    this.parameterLogic();
   }
-
-  // *******************END PARAMETER LOGIC*******************
-
-  // Update results table and current selections
+  // Capture values from dropdown menus
   selectChangedGravBail(selectedBailSize) {
     this.currentBailSize = selectedBailSize;
     this.dropdownInputsTable[0] = this.currentBailSize;
@@ -62,10 +60,85 @@ export class Tab1Page {
     this.currentCasingOD = selectedCasingOD;
     this.dropdownInputsTable[2] = this.currentCasingOD;
   }
+  // **********************************END OF INPUT CAPTURE AND DATA PREP ***********************************
 
-  // **********list of paramters and dictionaries of tables**********
+
+  // **************************************PARAMETER LOGIC **************************************
+  parameterLogic() {
+    // Set Total Bailer Volume (this.results[5])
+    for (let [key, value] of Object.entries(this.gravBailTable)) {
+      if (parseFloat(this.dropdownInputsTable[0]) === parseFloat(key)) {
+        this.results[5] = this.gravBailTable[key] * this.bailerLength;
+        this.displayedResults[5] = Number(this.results[5]).toFixed(2);
+        break;
+      }
+    }
+    // Match Tubing OD to Tubing ID (this.results[1])
+    for (let [key, value] of Object.entries(this.tubingTableVals)) {
+      var check = isEqual(this.dropdownInputsTable[1].trim(), key.trim());
+      if (check == true) {
+        this.displayedResults[1] = this.results[1] = this.tubingTableVals[key];
+        break;
+      } 
+    } 
+    // Match casing OD to casing ID (this.results[3])
+    for (let i = 0; i < this.casingOD.length; i++) {
+      if (this.dropdownInputsTable[2].trim() == this.casingOD[i].trim()) {
+        this.displayedResults[3] = this.results[3] = this.casingODvals[i];
+        break;
+      }
+    }
+    // Set Tubing Capacity (this.results[2])
+    this.results[2] = this.results[1] * this.results[1] * 0.0408;
+    this.displayedResults[2] = Number(this.results[2]).toFixed(3);
+    // Set Tubing fill height per bailer run (this.results[0])
+    this.results[0] = this.results[5] / this.results[2];
+    this.displayedResults[0] = Number(this.results[0]).toFixed(2);
+    // Set Casing Capacity (this.results[4])
+    this.results[4] = this.results[3] * this.results[3] * 0.0408;
+    this.displayedResults[4] = Number(this.results[4]).toFixed(3);
+    // Set Casing fill height per bailer run (this.results[6])
+    this.results[6] = this.results[5] / this.results[4];
+    this.displayedResults[6] = Number(this.results[6]).toFixed(2);
+    console.log(this.wellDeviation);
+    // Option #1: get cement plug delta psi
+    if (this.cementHeightDumped !== undefined) {
+      if (this.wellDeviation > 69) {
+          this.results[7] = (280 * this.cementHeightDumped * 12 * 2) / this.results[3];
+        } else if (this.wellDeviation > 59) {
+          this.results[7] = (280 * this.cementHeightDumped * 12 * 1.6) / this.results[3];
+        } else if (this.wellDeviation > 29) {
+          this.results[7] = (280 * this.cementHeightDumped * 12 * 1.2) / this.results[3];
+        } else if (this.wellDeviation < 30) {
+          this.results[7] = (280 * this.cementHeightDumped * 12) / this.results[3];
+        }
+        this.displayedResults[7] = this.results[7];
+      }
+    // Option #2: get cement height required
+    if (this.plugTestPressure !== undefined) {
+      if (this.wellDeviation > 69) {
+          this.results[8] = this.plugTestPressure * this.results[3] * 2 / (280 * 12);
+        } else if (this.wellDeviation > 59) {
+          this.results[8] = this.plugTestPressure * this.results[3] * 1.6 / (280 * 12);
+        } else if (this.wellDeviation > 29) {
+          this.results[8] = this.plugTestPressure * this.results[3] * 1.2 / (280 * 12);
+        } else if (this.wellDeviation < 30) {
+          this.results[8] = this.plugTestPressure * this.results[3] / (280 * 12);
+        }
+        this.displayedResults[8] = this.results[8];
+    }  
+    this.displayedResults[9] = this.results[9] = this.cementHeightDumped * this.results[4];
+    this.displayedResults[11] = this.results[11] = this.cementHeightDumped / this.results[6];
+    this.displayedResults[10] = this.results[10] = this.results[11] * this.results[5];
+    this.displayedResults[12] = this.results[12] = this.results[10] / this.results[4];
+  }
+
+  // **************************************END PARAMETER LOGIC **************************************
+
+
+  // *****************************list of paramaters and dictionaries of tables*****************************
   ngOnInit() {
-    // Initiate list for results displayed on the results section
+    // list to store results used in calculations (not rounded, not displayed)
     this.results = [
       /* 0 Tubing Fill Height per Bailer Run (ft): */ 0,
       /* 1 Tubing ID (in): */ 0,
@@ -84,7 +157,26 @@ export class Tab1Page {
       /* 14 Total Per Run Round Trip Time": */ 0,
       /* 15 Total Bailing Round Trip Time": */ 0,
     ];
-    // Initiate list for selected values from dropdown inputs
+    // list used to store rounded values to be displayed. Same as list above, except its rounded 
+    this.displayedResults = [
+      /* 0 Tubing Fill Height per Bailer Run (ft): */ 0,
+      /* 1 Tubing ID (in): */ 0,
+      /* 2 Tubing Capacity (US Gal/ft)": */ 0,
+      /* 3 Casing ID (in)": */ 0,
+      /* 4 Casing Capacity (US Gal/ft)": */ 0,
+      /* 5 Total Bailer Volume (US Gal/ft)": */ 0,
+      /* 6 Casing Fill Height per Bailer Run (ft)": */ 0,
+      /* 7 Cement Plug ΔP (psi)": */ 0,
+      /* 8 Cement Height Required (ft)": */ 0,
+      /* 9 Cement Volume Required (Gals)": */ 0,
+      /* 10 Cement Dumped (If full Bailer)(Gals)": */ 0,
+      /* 11 Total Bailer Runs Required": */ 0,
+      /* 12 Cement Height (If full Bailers used)": */ 0,
+      /* 13 Inhole Per Run Operating Time": */ 0,
+      /* 14 Total Per Run Round Trip Time": */ 0,
+      /* 15 Total Bailing Round Trip Time": */ 0,
+    ];
+    // list for selected values from dropdown inputs
     this.dropdownInputsTable = [];
     // Set initial values for dropdown inputs
     this.dropdownInputsTable[0] = this.currentBailSize = "1.000";
@@ -104,6 +196,20 @@ export class Tab1Page {
       "4.000",
       "5.000",
     ];
+    this.gravBailTable = {
+      "1.000": 0.033,
+      "1.375": 0.067,
+      "1.500": 0.072,
+      "1.625": 0.095,
+      "2.000": 0.137,
+      "2.125": 0.152,
+      "2.375": 0.185,
+      "2.625": 0.206,
+      "3.000": 0.315,
+      "3.500": 0.438,
+      "4.000": 0.587,
+      "5.000": 0.939,
+    };
     this.tubingOD = [
       '2.375" 4.70#',
       '2.375" 5.95#',
@@ -119,6 +225,21 @@ export class Tab1Page {
       '4.500" 13.50#',
       '4.500" 15.50#',
     ];
+    this.tubingTableVals = {
+      '2.375" 4.70#': 1.995,
+      '2.375" 5.95#': 1.867,
+      '2.875" 6.50#': 2.441,
+      '2.875" 8.70#': 2.259,
+      '3.500" 9.30#': 2.992,
+      '3.500" 10.20#': 2.922,
+      '3.500" 12.95#': 2.750,
+      '4.000" 9.50#': 3.548,
+      '4.000" 11.00#': 3.476,
+      '4.000" 13.40#': 3.340,
+      '4.500" 12.75#': 3.958,
+      '4.500" 13.50#': 3.920,
+      '4.500" 15.50#': 3.826,
+    };
     this.casingOD = [
       '4.500" 9.50#',
       '4.500" 10.50#',
@@ -200,36 +321,86 @@ export class Tab1Page {
       '20.000" 133.00#',
       '20.000" 169.00#',
     ];
-    // Tables
-    this.gravBailTable = {
-      "1.000": 0.033,
-      "1.375": 0.067,
-      "1.500": 0.072,
-      "1.625": 0.095,
-      "2.000": 0.137,
-      "2.125": 0.152,
-      "2.375": 0.185,
-      "2.625": 0.206,
-      "3.000": 0.315,
-      "3.500": 0.438,
-      "4.000": 0.587,
-      "5.000": 0.939,
-    };
-    this.tubingTable = {
-      '2.375" 4.70#': 1.995,
-      '2.375" 5.95#': 1.867,
-      '2.875" 6.50#': 2.441,
-      '2.875" 8.70#': 2.259,
-      '3.500" 9.30#': 2.992,
-      '3.500" 10.20#': 2.922,
-      '3.500" 12.95#': 2.75,
-      '4.000" 9.50#': 3.548,
-      '4.000" 11.00#': 3.476,
-      '4.000" 13.40#': 3.34,
-      '4.500" 12.75#': 3.958,
-      '4.500" 13.50#': 3.92,
-      '4.500" 15.50#': 3.826,
-    };
-    this.casingTable = {};
+    this.casingODvals = [
+      4.090,
+      4.052,
+      4.000,
+      3.920,
+      3.826,
+      4.494,
+      4.408,
+      4.276,
+      4.184,
+      4.044,
+      4.950,
+      4.892,
+      4.778,
+      4.670,
+      4.548,
+      6.049,
+      5.921,
+      5.791,
+      5.675,
+      6.456,
+      6.366,
+      6.276,
+      6.184,
+      6.094,
+      6.004,
+      5.920,
+      6.969,
+      6.875,
+      6.765,
+      6.625,
+      6.501,
+      6.435,
+      7.921,
+      7.825,
+      7.725,
+      7.625,
+      7.511,
+      8.835,
+      8.755,
+      8.681,
+      8.535,
+      8.435,
+      10.050,
+      9.950,
+      9.850,
+      9.760,
+      9.660,
+      9.560,
+      9.450,
+      9.250,
+      10.880,
+      10.772,
+      10.682,
+      10.586,
+      10.711,
+      10.782,
+      12.615,
+      12.515,
+      12.415,
+      12.347,
+      12.215,
+      12.125,
+      12.375,
+      15.250,
+      15.124,
+      15.010,
+      14.868,
+      14.850,
+      14.688,
+      14.570,
+      14.323,
+      17.755,
+      17.689,
+      17.563,
+      17.439,
+      19.124,
+      19.000,
+      18.730,
+      18.376
+    ];
   }
 }

@@ -1,17 +1,28 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
+    <ion-title id="title">
+      DUMP BAILER RUNS / JOB TIME REQUIREMENTS
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+<ion-list>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Cement Volume Required (Gals)</ion-label>
+    <ion-input class="notes" readonly></ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Cement Dumped (If Full Bailer)(Gals)</ion-label>
+    <ion-input class="notes" readonly></ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Total Bailer Runs Required</ion-label>
+    <ion-input class="notes" readonly></ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Cement Height (if full bailers used)</ion-label>
+    <ion-input class="notes" readonly></ion-input>
+  </ion-item>
+</ion-list>
 </ion-content>
