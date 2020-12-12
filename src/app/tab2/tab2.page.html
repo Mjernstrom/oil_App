@@ -1,28 +1,78 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title id="title">
-      DUMP BAILER RUNS / JOB TIME REQUIREMENTS
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-<ion-list>
+  <ion-header [translucent]="true">
+    <ion-title id="title">
+      Results
+    </ion-title>
+  </ion-header>
+<ion-list lines="none">
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Tubing Fill Height per Bailer Run (ft)</ion-label>
+    <ion-input class="notes" readonly>{{ this.tubingFillHeight }}</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Tubing ID</ion-label>
+    <ion-input class="notes" readonly>{{ this.tubingID }}</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Tubing Capacity (US Gal/ft)</ion-label>
+    <ion-input class="notes" readonly>{{ this.tubingCapacity }}</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Casing ID (in)</ion-label>
+    <ion-input class="notes" readonly>{{ this.casingID }}</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Casing Capacity (US Gal/ft)</ion-label>
+    <ion-input class="notes" readonly>{{ this.casingCapacity }}</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Total Bailer Volume (US Gal/ft)</ion-label>
+    <ion-input class="notes" readonly>{{ this.totalBailerVol }}</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Casing Fill Height per Bailer Run (ft)</ion-label>
+    <ion-input class="notes" readonly>{{ this.casingFillHeight }}</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Cement Plug ΔP (psi)</ion-label>
+    <ion-input class="notes" readonly>{{ this.cementPlugDelta }}</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Cement Height Required (ft)</ion-label>
+    <ion-input class="notes" readonly>{{ this.cementHeightRequired }}</ion-input>
+  </ion-item>
+  <ion-header [translucent]="true">
+    <ion-title id="title">
+      Dump Bailer Runs/Job Time Requirements
+    </ion-title>
+  </ion-header>
   <ion-item class=resultsList color="custom">
     <ion-label position="stacked">Cement Volume Required (Gals)</ion-label>
-    <ion-input class="notes" readonly></ion-input>
+    <ion-input class="notes" readonly>{{ this.cementVolReq }}</ion-input>
   </ion-item>
   <ion-item class=resultsList color="custom">
     <ion-label position="stacked">Cement Dumped (If Full Bailer)(Gals)</ion-label>
-    <ion-input class="notes" readonly></ion-input>
+    <ion-input class="notes" readonly>{{ this.cementDumped }}</ion-input>
   </ion-item>
   <ion-item class=resultsList color="custom">
     <ion-label position="stacked">Total Bailer Runs Required</ion-label>
-    <ion-input class="notes" readonly></ion-input>
+    <ion-input class="notes" readonly>{{ this.totalBailerRuns }}</ion-input>
   </ion-item>
   <ion-item class=resultsList color="custom">
     <ion-label position="stacked">Cement Height (if full bailers used)</ion-label>
-    <ion-input class="notes" readonly></ion-input>
+    <ion-input class="notes" readonly>{{ this.cementHeight }}</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Inhole Per Run Operating Time</ion-label>
+    <ion-input class="notes" readonly>{{ this.operatingTime }} Mins</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Total Per Run Round Trip Time</ion-label>
+    <ion-input class="notes" readonly> {{ this.perRunTime }} Mins</ion-input>
+  </ion-item>
+  <ion-item class=resultsList color="custom">
+    <ion-label position="stacked">Total Bailing Round Trip Time</ion-label>
+    <ion-input class="notes" readonly>{{ this.bailingRunTime }} Mins</ion-input>
   </ion-item>
 </ion-list>
 </ion-content>

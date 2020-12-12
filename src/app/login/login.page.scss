@@ -1,0 +1,72 @@
+ion-content {
+  --ion-background-color: black;
+}
+ion-title {
+    background-color: rgb(15, 15, 15);
+    text-align: center;
+    position: relative;
+    margin-top: 0px;
+}
+img{
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: 3rem;
+ background-color: black;
+}
+ion-label{
+  text-align: center;
+}
+ion-input{
+  text-align: center;
+  color: white;
+}
+.button{
+  position: relative;
+  width: 175px;
+  margin: auto;
+  margin-top: 5%;
+}
+#logInButton{
+    --background: rgb(255, 255, 255);
+    color: black;
+    display: block;
+    margin-top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+#forgotPass {
+    --background: white;
+    color: black;
+    margin-bottom: 3rem;
+    margin-left: 0.5rem;
+}
+#signUp {
+    --background: white;
+    color: black;
+    display: block;
+    margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+a {
+  color: white;
+  display: block;
+  text-align: center;
+  margin-top: 5rem;
+}
+.contact{
+  text-align: center;
+}
+ion-grid{
+  text-align: center;
+  border-style: solid;
+  border-color: #D3BA77;
+}
+#emailLabel {
+    font-weight: bold;
+}
+#passwordLabel {
+    font-weight: bold;
+}
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Login Page</title>
+
+  <base href="/" />
+
+  <meta name="color-scheme" content="light dark" />
+  <meta name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+
+  <!-- add to homescreen for ios -->
+
+
+
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+</head>
+
+<ion-app>
+  <ion-content padding class="loginpage">
+      <br>
+      <img src="assets/TTSlogo.png" style="width:200px ;height:142px;">
+      <br><br>
+      
+        <div class="login">
+          <ion-item id="emailLabel" lines="none">
+            <ion-label color="light">Username</ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-input id="username" [(ngModel)]="username" type="text"></ion-input>
+          </ion-item>
+          <ion-item id="passwordLabel" lines="none">
+            <ion-label color="light">Password</ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-input id="password" type="password" [(ngModel)]="password"></ion-input>
+          </ion-item>
+        </div>
+          <ion-button id="logInButton" type="submit"  shape="round" size="large" (click)="login()">Log in
+          </ion-button>
+      
+      <br>
+      <div style="text-align: center;margin: auto;">
+        <!--
+        <ion-button id="forgotPass" (click)="goToReset()">Forgot Password?</ion-button>
+        -
+        <ion-button shape="round" size="large" id="signUp" (click)="createAccount()">Sign Up</ion-button>
+        -->
+      </div>
+      <a href="http://www.thrutubingsystems.com/">Visit our website</a>
+      <br><br>
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+      <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+      <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+      <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
+      <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+          apiKey: "AIzaSyAxOmuj-e0Hoo8guVsA7Pws2GgttBlNNgM",
+          authDomain: "login-template-c5edf.firebaseapp.com",
+          databaseURL: "https://login-template-c5edf.firebaseio.com",
+          projectId: "login-template-c5edf",
+          storageBucket: "login-template-c5edf.appspot.com",
+          messagingSenderId: "729721065917",
+          appId: "1:729721065917:web:4426baafccd316b788c2d4",
+          measurementId: "G-W8PCGVN39J"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+      </script>

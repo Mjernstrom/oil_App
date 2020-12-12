@@ -1,57 +1,10 @@
-<!--
-<ion-app>
-  <ion-menu content-id="main-content">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>Calculations</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content>
-      <ion-list>
-        <ion-menu-toggle auto-hide="false">
-          <ion-item button>
-            <ion-label>
-              1.   Well Parameters
-            </ion-label>
-          </ion-item>
-          <ion-item button>
-            <ion-label>
-              2.   Option 1: Enter height of cement
-            </ion-label>
-          </ion-item>
-          <ion-item button>
-            <ion-label>
-              Option 2: Enter delta P required
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-
-  <ion-page class="ion-page" id="main-content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-toggle>
-            <ion-button>
-              <ion-icon slot="icon-only" name="menu"></ion-icon>
-            </ion-button>
-          </ion-menu-toggle>
-        </ion-buttons>
-        <ion-title>Header</ion-title>
-      </ion-toolbar>
-    </ion-header>
-<ion-menu-controller></ion-menu-controller>
-  -->
 <ion-content padding>
   <ion-header>
     <ion-title class="wellParametersTitle" color="custom">
       Well Parameters
     </ion-title>
   </ion-header>
-  <ion-item class="wellParameters" color="custom">
+  <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label>Tubing OD/Wt. (in/ppf)</ion-label>
     <ion-select #mySelectTubingOD [value]="currentTubingOD" [selectedText]="currentTubingOD"
       (ionChange)="selectChangedTubing(mySelectTubingOD.value)">
@@ -60,11 +13,11 @@
       </ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-item class="wellParameters" color="custom">
+  <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label position="stacked">Min. Restriction or Drift ID, (in)</ion-label>
     <ion-input id="driftID" placeholder="Enter Here"></ion-input>
   </ion-item>
-  <ion-item class="wellParameters" color="custom">
+  <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label>Casing OD/Wt. (in/ppf)</ion-label>
     <ion-select #mySelectedCasingOD [value]="currentCasingOD" [selectedText]="currentCasingOD"
       (ionChange)="selectChangedCasing(mySelectedCasingOD.value)">
@@ -73,15 +26,15 @@
       </ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-item class="wellParameters" color="custom">
+  <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label position="stacked">Well Deviation (degrees)</ion-label>
     <ion-input id="wellDeviation" placeholder="Enter Here"></ion-input>
   </ion-item>
-  <ion-item class="wellParameters" color="custom">
+  <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label position="stacked">Time @ Surface; Rig up, and Riser test (min)</ion-label>
     <ion-input id="timeAtSurface" placeholder="Enter Here"></ion-input>
   </ion-item>
-  <ion-item class="wellParameters" color="custom">
+  <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label>Gravity Bailer OD(in)</ion-label>
     <ion-select #mySelectGrav [value]="currentBailSize" [selectedText]="currentBailSize"
       (ionChange)="selectChangedGravBail(mySelectGrav.value)">
@@ -90,70 +43,30 @@
       </ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-item class="wellParameters" color="custom">
+  <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label position="stacked">Bailer Length(ft)</ion-label>
     <ion-input id="bailerLength" placeholder="Enter Here"></ion-input>
   </ion-item>
-  <ion-item class="wellParameters" color="custom">
+  <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label position="stacked">BHT (degrees of F)</ion-label>
     <ion-input id="bht" placeholder="Enter Here"></ion-input>
   </ion-item>
-  <ion-item class="wellParameters" color="custom">
+  <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label position="stacked">Plug Setting Depth (ft)</ion-label>
     <ion-input id="plugSettingDepth" placeholder="Enter Here"></ion-input>
   </ion-item>
-  <ion-item class="wellParameters" color="custom">
+  <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label position="stacked">Wireline Run Speed (ft/min)</ion-label>
     <ion-input id="wirelineRunSpeed" placeholder="Enter Here"></ion-input>
   </ion-item>
-  <ion-item class="options" color="custom">
-    <ion-label position="stacked">OPTION #1 - ENTER HEIGHT OF CEMENT TO BE PLACED TO DETERMINE ΔP</ion-label>
+  <ion-item lines="none" class="options" color="custom">
+    <ion-label position="stacked">OPTION #1: Enter height of cement to be placed</ion-label>
     <ion-input id="cementHeightDumped" placeholder="Enter Here"></ion-input>
   </ion-item>
-  <ion-item class="options" color="custom">
-    <ion-label position="stacked">OPTION #2 - ENTER ΔP REQUIRED TO DETERMINE HEIGHT OF CEMENT REQUIRED</ion-label>
+  <ion-item lines="none" class="options" color="custom">
+    <ion-label position="stacked">OPTION #2: Enter ΔP required</ion-label>
     <ion-input id="plugTestPressure" placeholder="Enter Here"></ion-input>
   </ion-item>
-  <ion-list lines="none">
-    <ion-item class=resultsList color="custom">
-      <ion-button id="resultButton" shape="round" (click)="fetchTableValues()">Click here to get results</ion-button>
-    </ion-item>
-    <ion-item class=resultsList color="custom">
-      <ion-label position="stacked">Tubing Fill Height per Bailer Run (ft)</ion-label>
-      <ion-input class="notes" readonly>{{ this.displayedResults[0] }}</ion-input>
-    </ion-item>
-    <ion-item class=resultsList color="custom">
-      <ion-label position="stacked">Tubing ID</ion-label>
-      <ion-input class="notes" readonly>{{ this.displayedResults[1] }}</ion-input>
-    </ion-item>
-    <ion-item class=resultsList color="custom">
-      <ion-label position="stacked">Tubing Capacity (US Gal/ft)</ion-label>
-      <ion-input class="notes" readonly>{{ this.displayedResults[2] }}</ion-input>
-    </ion-item>
-    <ion-item class=resultsList color="custom">
-      <ion-label position="stacked">Casing ID (in)</ion-label>
-      <ion-input class="notes" readonly>{{ this.displayedResults[3] }}</ion-input>
-    </ion-item>
-    <ion-item class=resultsList color="custom">
-      <ion-label position="stacked">Casing Capacity (US Gal/ft)</ion-label>
-      <ion-input class="notes" readonly>{{ this.displayedResults[4] }}</ion-input>
-    </ion-item>
-    <ion-item class=resultsList color="custom">
-      <ion-label position="stacked">Total Bailer Volume (US Gal/ft)</ion-label>
-      <ion-input class="notes" readonly>{{ this.displayedResults[5] }}</ion-input>
-    </ion-item>
-    <ion-item class=resultsList color="custom">
-      <ion-label position="stacked">Casing Fill Height per Bailer Run (ft)</ion-label>
-      <ion-input class="notes" readonly>{{ this.displayedResults[6] }}</ion-input>
-    </ion-item>
-    <ion-item class=resultsList color="custom">
-      <ion-label position="stacked">Cement Plug ΔP (psi)</ion-label>
-      <ion-input class="notes" readonly>{{ this.displayedResults[7] }}</ion-input>
-    </ion-item>
-    <ion-item class=resultsList color="custom">
-      <ion-label position="stacked">Cement Height Required (ft)</ion-label>
-      <ion-input class="notes" readonly>{{ this.displayedResults[8] }}</ion-input>
-    </ion-item>
-  </ion-list>
+  <ion-button lines="none" id="resultButton" shape="round" (click)="fetchTableValues()">Click here to calculate</ion-button>
 </ion-content>
 

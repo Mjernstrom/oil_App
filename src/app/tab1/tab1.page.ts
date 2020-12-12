@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AlertController } from "@ionic/angular";
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 const isEqual = require('lodash.isequal');
 
 @Component({
@@ -29,8 +30,9 @@ export class Tab1Page {
   public casingODvals;
   public tubingTableVals: {};
   public displayedResults = [];
+  public objectsExported = [];
 
-  constructor(public alertController: AlertController) {}
+  constructor(private storage: Storage, private route: Router) {}
   // **********************************INPUT CAPTURE AND DATA PREP ***********************************
   
   // Capture values from text-box inputs
@@ -39,6 +41,7 @@ export class Tab1Page {
     this.wellDeviation = (<HTMLInputElement>(document.getElementById("wellDeviation"))).value;
     this.wellDeviation = parseInt(this.wellDeviation);
     this.timeAtSurface = (<HTMLInputElement>(document.getElementById("timeAtSurface"))).value;
+    this.timeAtSurface = parseInt(this.timeAtSurface);
     this.bailerLength = (<HTMLInputElement>(document.getElementById("bailerLength"))).value;
     this.bht = (<HTMLInputElement>document.getElementById("bht")).value;
     this.plugSettingDepth = (<HTMLInputElement>(document.getElementById("plugSettingDepth"))).value;
@@ -60,10 +63,10 @@ export class Tab1Page {
     this.currentCasingOD = selectedCasingOD;
     this.dropdownInputsTable[2] = this.currentCasingOD;
   }
-  // **********************************END OF INPUT CAPTURE AND DATA PREP ***********************************
+  // ********************************** END OF INPUT CAPTURE AND DATA PREP ***********************************
 
 
-  // **************************************PARAMETER LOGIC **************************************
+  // ************************************** PARAMETER LOGIC **************************************
   parameterLogic() {
     // Set Total Bailer Volume (this.results[5])
     for (let [key, value] of Object.entries(this.gravBailTable)) {
@@ -100,43 +103,73 @@ export class Tab1Page {
     // Set Casing fill height per bailer run (this.results[6])
     this.results[6] = this.results[5] / this.results[4];
     this.displayedResults[6] = Number(this.results[6]).toFixed(2);
-    console.log(this.wellDeviation);
     // Option #1: get cement plug delta psi
     if (this.cementHeightDumped !== undefined) {
       if (this.wellDeviation > 69) {
-          this.results[7] = (280 * this.cementHeightDumped * 12 * 2) / this.results[3];
+          this.results[7] = (280 * this.cementHeightDumped * 24) / this.results[3];
         } else if (this.wellDeviation > 59) {
-          this.results[7] = (280 * this.cementHeightDumped * 12 * 1.6) / this.results[3];
+          this.results[7] = (280 * this.cementHeightDumped * 19.2) / this.results[3];
         } else if (this.wellDeviation > 29) {
-          this.results[7] = (280 * this.cementHeightDumped * 12 * 1.2) / this.results[3];
+          this.results[7] = (280 * this.cementHeightDumped * 14.4) / this.results[3];
         } else if (this.wellDeviation < 30) {
           this.results[7] = (280 * this.cementHeightDumped * 12) / this.results[3];
         }
-        this.displayedResults[7] = this.results[7];
+        this.displayedResults[7] = Number(this.results[7]).toFixed(2);
       }
     // Option #2: get cement height required
     if (this.plugTestPressure !== undefined) {
       if (this.wellDeviation > 69) {
-          this.results[8] = this.plugTestPressure * this.results[3] * 2 / (280 * 12);
+          this.results[8] = this.plugTestPressure * this.results[3] * 2 / 3360;
         } else if (this.wellDeviation > 59) {
-          this.results[8] = this.plugTestPressure * this.results[3] * 1.6 / (280 * 12);
+          this.results[8] = this.plugTestPressure * this.results[3] * 1.6 / 3360;
         } else if (this.wellDeviation > 29) {
-          this.results[8] = this.plugTestPressure * this.results[3] * 1.2 / (280 * 12);
+          this.results[8] = this.plugTestPressure * this.results[3] * 1.2 / 3360;
         } else if (this.wellDeviation < 30) {
-          this.results[8] = this.plugTestPressure * this.results[3] / (280 * 12);
+          this.results[8] = this.plugTestPressure * this.results[3] / 3360;
         }
-        this.displayedResults[8] = this.results[8];
+        this.displayedResults[8] = Number(this.results[8]).toFixed(2);
     }  
     this.displayedResults[9] = this.results[9] = this.cementHeightDumped * this.results[4];
     this.displayedResults[11] = this.results[11] = this.cementHeightDumped / this.results[6];
     this.displayedResults[10] = this.results[10] = this.results[11] * this.results[5];
     this.displayedResults[12] = this.results[12] = this.results[10] / this.results[4];
+
+    var timeOutputMins = this.plugSettingDepth / this.wirelineRunSpeed;
+    var timeOutputHours = timeOutputMins / 60;
+    this.displayedResults[13] = this.results[13] = timeOutputMins;
+    this.displayedResults[14] = this.results[14] = timeOutputMins + this.timeAtSurface;
+    this.displayedResults[15] = this.results[15] = this.displayedResults[14] * this.results[11];
+
+    // Set data in storage to be used in Tab 2
+    this.storage.set('tubingFillHeight', this.displayedResults[0]);
+    this.storage.set('tubingID', this.displayedResults[1]);
+    this.storage.set('tubingCapacity', this.displayedResults[2]);
+    this.storage.set('casingID', this.displayedResults[3]);
+    this.storage.set('casingCapacity', this.displayedResults[4]);
+    this.storage.set('totalBailerVol', this.displayedResults[5]);
+    this.storage.set('casingFillHeight', this.displayedResults[6]);
+    this.displayedResults[7] = Math.ceil(this.displayedResults[7]);
+    this.storage.set('cementPlugDelta', this.displayedResults[7]);
+    this.storage.set('cementHeightRequired', this.displayedResults[8]);
+    this.displayedResults[9] = Number(this.displayedResults[9]).toFixed(2);
+    this.storage.set('cementVolRequired', this.displayedResults[9]);
+    this.displayedResults[10] = Number(this.displayedResults[10]).toFixed(2);
+    this.storage.set('cementDumped', this.displayedResults[10]);
+    this.displayedResults[11] = Math.ceil(this.displayedResults[11]);
+    this.storage.set('totalBailerRuns', this.displayedResults[11]);
+    this.displayedResults[12] = this.displayedResults[12];
+    this.storage.set('cementHeight', this.displayedResults[12]);
+    this.storage.set('operatingTime', this.displayedResults[13]);
+    this.storage.set('perRunTime', this.displayedResults[14]);
+    this.displayedResults[15] = Math.ceil(this.displayedResults[15]);
+    this.storage.set('bailingRunTime', this.displayedResults[15]);
+    this.route.navigate(['/tabs/tab2']);
   }
 
-  // **************************************END PARAMETER LOGIC **************************************
+  // ************************************** END PARAMETER LOGIC **************************************
 
 
-  // *****************************list of paramaters and dictionaries of tables*****************************
+  // ***************************** list of paramaters and dictionaries of tables *****************************
   ngOnInit() {
     // list to store results used in calculations (not rounded, not displayed)
     this.results = [

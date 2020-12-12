@@ -1,5 +1,14 @@
 {
   "name": "oilApp",
-  "integrations": {},
-  "type": "angular"
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+
+  "proxies": [
+    {
+      "path": "/localhost",
+      "proxyUrl": "http://localhost:26309"
+    }
+  ]
 }
