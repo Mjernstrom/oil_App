@@ -30,7 +30,7 @@ export class Tab1Page {
   public casingODvals;
   public tubingTableVals: {};
   public displayedResults = [];
-  public objectsExported = [];
+  //public objectsExported = [];
 
   constructor(private storage: Storage, private route: Router) {}
   // **********************************INPUT CAPTURE AND DATA PREP ***********************************
@@ -130,7 +130,7 @@ export class Tab1Page {
         this.displayedResults[8] = Number(this.results[8]).toFixed(2);
     }  
     this.displayedResults[9] = this.results[9] = this.cementHeightDumped * this.results[4];
-    this.displayedResults[11] = this.results[11] = this.cementHeightDumped / this.results[6];
+    this.displayedResults[11] = this.results[11] = Math.ceil(this.cementHeightDumped / this.results[6]);
     this.displayedResults[10] = this.results[10] = this.results[11] * this.results[5];
     this.displayedResults[12] = this.results[12] = this.results[10] / this.results[4];
 
@@ -155,15 +155,15 @@ export class Tab1Page {
     this.storage.set('cementVolRequired', this.displayedResults[9]);
     this.displayedResults[10] = Number(this.displayedResults[10]).toFixed(2);
     this.storage.set('cementDumped', this.displayedResults[10]);
-    this.displayedResults[11] = Math.ceil(this.displayedResults[11]);
+    this.displayedResults[11] = this.displayedResults[11];
     this.storage.set('totalBailerRuns', this.displayedResults[11]);
-    this.displayedResults[12] = this.displayedResults[12];
+    this.displayedResults[12] = Number(this.displayedResults[12]).toFixed(2);
     this.storage.set('cementHeight', this.displayedResults[12]);
     this.storage.set('operatingTime', this.displayedResults[13]);
     this.storage.set('perRunTime', this.displayedResults[14]);
     this.displayedResults[15] = Math.ceil(this.displayedResults[15]);
     this.storage.set('bailingRunTime', this.displayedResults[15]);
-    this.route.navigate(['/tabs/tab2']);
+    this.route.navigate(['/dumpBailHeight/tab2']);
   }
 
   // ************************************** END PARAMETER LOGIC **************************************

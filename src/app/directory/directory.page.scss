@@ -1,0 +1,43 @@
+@media only screen and (min-width: 700px) {
+  ion-label {
+    margin-right: 12rem;
+    margin-left: 12rem;
+  }
+  ion-button {
+    margin-right: 12rem;
+    margin-left: 12rem;
+  }
+}
+@media only screen and (max-width: 699px) {
+    ion-label {
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+  ion-button {
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+}
+#title {
+    margin-top: 3rem;
+    font-size: 30px;
+}
+ion-label {
+    font-size: 15px;
+    background-color: rgb(38, 6, 155);
+    padding: 1rem;
+    border-radius: 30px;
+    color: white;
+}
+ion-button {
+    margin-top: 1.5rem;
+    --background-activated: black;
+}
+ion-grid {
+    margin-top: 5rem;
+    //margin-left: 2rem;
+}
+ion-content {
+    --ion-background-color: rgb(255, 255, 255);
+}
+

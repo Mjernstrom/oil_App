@@ -2,18 +2,16 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { TabsPageRoutingModule } from './tabs-routing.module';
-
-import { TabsPage } from './tabs.page';
+import { dumpBailHeightPageRoutingModule } from './dumpBailHeight-routing.module';
+import { dumpBailHeight } from './dumpBailHeight.page';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule
+    dumpBailHeightPageRoutingModule
   ],
-  declarations: [TabsPage]
+  declarations: [dumpBailHeight]
 })
-export class TabsPageModule {}
+export class dumpBailHeightPageModule {}

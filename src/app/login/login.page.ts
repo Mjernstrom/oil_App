@@ -11,17 +11,22 @@ import { ToastController } from '@ionic/angular';
 export class LoginPage implements OnInit {
   username: string = "";
   password: string = "";
+  isToastActive = false;
 
   constructor(
-      public afAuth: AngularFireAuth, 
+      private afAuth: AngularFireAuth, 
       private route: Router, 
       private toast: ToastController
-    ){}
+    ) {}
 
   ngOnInit() {
   }
 
   async createAccount() {
+    if (this.isToastActive == true) {
+      this.toast.dismiss();
+      this.isToastActive = false;
+    }
     this.route.navigate(['signup']);
   }
   
@@ -31,18 +36,19 @@ export class LoginPage implements OnInit {
       .then(user => {
           this.route.navigate(['tabs']);
       }).catch(error => {
-          console.log("contact Mattjernstrom@gmail.com for credentials to gain access");
           this.presentLoginError();
       })
     }
 
   async presentLoginError() {
     const toast = await this.toast.create({
+      cssClass: 'loginError',
       message: 'Username/Password Incorrect',
       position: 'middle',
       color: 'light',
-      duration: 5000
+      duration: 4000,
     });
+    this.isToastActive = true;
     toast.present();
   }
 }

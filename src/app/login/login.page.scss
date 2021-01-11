@@ -7,21 +7,21 @@ ion-title {
     position: relative;
     margin-top: 0px;
 }
-img{
+img {
  display: block;
  margin-left: auto;
  margin-right: auto;
  margin-top: 3rem;
  background-color: black;
 }
-ion-label{
+ion-label {
   text-align: center;
 }
-ion-input{
+ion-input {
   text-align: center;
   color: white;
 }
-.button{
+.button {
   position: relative;
   width: 175px;
   margin: auto;
@@ -31,34 +31,37 @@ ion-input{
     --background: rgb(255, 255, 255);
     color: black;
     display: block;
-    margin-top: 5rem;
+    margin-top: 3rem;
     margin-left: auto;
     margin-right: auto;
 }
 #forgotPass {
     --background: white;
     color: black;
-    margin-bottom: 3rem;
-    margin-left: 0.5rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
 }
 #signUp {
     --background: white;
     color: black;
     display: block;
-    margin-bottom: 3rem;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 1.5rem;
+    font-size: 15px;
 }
 a {
   color: white;
   display: block;
   text-align: center;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
-.contact{
+.contact {
   text-align: center;
 }
-ion-grid{
+ion-grid {
   text-align: center;
   border-style: solid;
   border-color: #D3BA77;
@@ -69,4 +72,3 @@ ion-grid{
 #passwordLabel {
     font-weight: bold;
 }
-

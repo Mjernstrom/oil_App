@@ -1,11 +1,15 @@
 <ion-content padding>
+  <ion-back-button id="backButton" color="dark" defaultHref='/directory'></ion-back-button>
+  <ion-header id="header">
+    Bailer/Cement Plug Height Calculator
+  </ion-header>
   <ion-header>
-    <ion-title class="wellParametersTitle" color="custom">
+    <ion-title id="wellParametersTitle" color="custom">
       Well Parameters
     </ion-title>
   </ion-header>
   <ion-item lines="none" class="wellParameters" color="custom">
-    <ion-label>Tubing OD/Wt. (in/ppf)</ion-label>
+    <ion-label class="ion-text-wrap">Tubing OD/Wt.(in/ppf)</ion-label>
     <ion-select #mySelectTubingOD [value]="currentTubingOD" [selectedText]="currentTubingOD"
       (ionChange)="selectChangedTubing(mySelectTubingOD.value)">
       <ion-select-option *ngFor="let tubingODs of tubingOD" (selected)="tubingODs === currentTubingOD">
@@ -14,11 +18,7 @@
     </ion-select>
   </ion-item>
   <ion-item lines="none" class="wellParameters" color="custom">
-    <ion-label position="stacked">Min. Restriction or Drift ID, (in)</ion-label>
-    <ion-input id="driftID" placeholder="Enter Here"></ion-input>
-  </ion-item>
-  <ion-item lines="none" class="wellParameters" color="custom">
-    <ion-label>Casing OD/Wt. (in/ppf)</ion-label>
+    <ion-label class="ion-text-wrap" >Casing OD/Wt.(in/ppf)</ion-label>
     <ion-select #mySelectedCasingOD [value]="currentCasingOD" [selectedText]="currentCasingOD"
       (ionChange)="selectChangedCasing(mySelectedCasingOD.value)">
       <ion-select-option *ngFor="let casingODs of casingOD" (selected)="casingODs === currentCasingOD">
@@ -27,21 +27,25 @@
     </ion-select>
   </ion-item>
   <ion-item lines="none" class="wellParameters" color="custom">
-    <ion-label position="stacked">Well Deviation (degrees)</ion-label>
-    <ion-input id="wellDeviation" placeholder="Enter Here"></ion-input>
-  </ion-item>
-  <ion-item lines="none" class="wellParameters" color="custom">
-    <ion-label position="stacked">Time @ Surface; Rig up, and Riser test (min)</ion-label>
-    <ion-input id="timeAtSurface" placeholder="Enter Here"></ion-input>
-  </ion-item>
-  <ion-item lines="none" class="wellParameters" color="custom">
-    <ion-label>Gravity Bailer OD(in)</ion-label>
+    <ion-label class="ion-text-wrap">Gravity Bailer OD(in)</ion-label>
     <ion-select #mySelectGrav [value]="currentBailSize" [selectedText]="currentBailSize"
       (ionChange)="selectChangedGravBail(mySelectGrav.value)">
       <ion-select-option *ngFor="let bailSize of bailSizes" (selected)="bailSize === currentBailSize">
         {{ bailSize }}
       </ion-select-option>
     </ion-select>
+  </ion-item>
+  <ion-item lines="none" class="wellParameters" color="custom">
+    <ion-label position="stacked">Min. Restriction or Drift ID, (in)</ion-label>
+    <ion-input id="driftID" placeholder="Enter Here"></ion-input>
+  </ion-item>
+  <ion-item lines="none" class="wellParameters" color="custom">
+    <ion-label position="stacked">Well Deviation (degrees)</ion-label>
+    <ion-input id="wellDeviation" placeholder="Enter Here"></ion-input>
+  </ion-item>
+  <ion-item lines="none" class="wellParameters" color="custom">
+    <ion-label position="stacked">Time @ Surface; Rig up, and Riser test (min)</ion-label>
+    <ion-input id="timeAtSurface" placeholder="Enter Here"></ion-input>
   </ion-item>
   <ion-item lines="none" class="wellParameters" color="custom">
     <ion-label position="stacked">Bailer Length(ft)</ion-label>

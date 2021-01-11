@@ -3,19 +3,26 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
-  
   {
-    path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    path: 'directory',
+    loadChildren: () => import('./directory/directory.module').then( m => m.DirectoryPageModule)
+  },
+  {
+    path: 'dumpBailHeight',
+    loadChildren: () => import('./dumpBailHeight/dumpBailHeight.module').then(m => m.dumpBailHeightPageModule)
   },
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
   },
-  
+  {
+    path: '',
+    redirectTo: 'directory',
+    pathMatch: 'full'
+  }
 ];
 @NgModule({
   imports: [

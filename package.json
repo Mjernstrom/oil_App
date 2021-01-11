@@ -1,6 +1,6 @@
 {
   "name": "oilPlugCalculator",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": "Matthew Jernstrom, Zach Walls",
   "homepage": "",
   "scripts": {
@@ -25,7 +25,6 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "@ionic/storage": "^2.3.1",
-    "cordova-android": "9.0.0",
     "firebase": "^8.1.1",
     "lodash.isequal": "^4.5.0",
     "rxjs": "~6.5.5",
