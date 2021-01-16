@@ -1,13 +1,42 @@
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 1000px) {
+  ion-item {
+    margin-right: 18rem;
+    margin-left: 18rem;
+    font-size: 20px;
+  }
+  ion-input {
+    font-size: 1.5rem;
+  }
+}
+@media only screen and (max-width: 999px) {
   ion-item {
     margin-right: 12rem;
     margin-left: 12rem;
+    font-size: 20px;
+  }
+  ion-input {
+    font-size: 1.5rem;
   }
 }
 @media only screen and (max-width: 699px) {
     ion-item {
     margin-right: 2rem;
     margin-left: 2rem;
+    font-size: 20px;
+  }
+  ion-input {
+    font-size: 1.5rem;
+  }
+}
+@media only screen and (max-width: 350px) {
+  ion-item {
+    font-size: 5px;
+  }
+  ion-input {
+    font-size: 1.1rem;
+  }
+  ion-label {
+    font-size: 5px;
   }
 }
 #title {
@@ -26,7 +55,6 @@
     margin-bottom: 1rem;
 }
 ion-item {
-  font-size: 20px;
   background-color: rgb(38, 6, 155);
   border-radius: 10px;
   margin-bottom: 0.7rem;
@@ -38,4 +66,5 @@ ion-item {
 }
 ion-input {
  display: block;
+ margin-top: 1rem;
 }
