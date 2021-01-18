@@ -1,3 +1,17 @@
+@media (prefers-color-scheme: dark) {
+  #resultButton {
+    background-color: rgb(0, 0, 0);
+    --background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+  }
+}
+@media (prefers-color-scheme: light) {
+  #resultButton {
+    background-color: rgb(255, 255, 255);
+    --background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+  }
+}
 @media only screen and (min-width: 1000px) {
     ion-item {
       margin-right: 16rem;
@@ -28,6 +42,29 @@
     margin-left: 3rem;
   }
 }
+@media only screen and (max-width: 360px) {
+  ion-label {
+    font-size: 8px;
+  }
+  
+}
+@media only screen and (min-width: 370px) {
+  .longLabel {
+    font-size: 12px;
+}
+}
+ion-label {
+    display: block;
+    position: relative;
+    margin-left: 1rem;
+}
+ion-select {
+    font-size: 12px;
+    color: white;
+}
+ion-back-button {
+    text-align: left;
+}
 * {
     font-weight: bold; 
     text-align: center;
@@ -40,21 +77,8 @@ ion-item.wellParameters {
   margin-bottom: 0.7rem;
   border-radius: 10px;
 }
-ion-label {
-    display: block;
-    position: relative;
-    margin-left: 1rem;
-}
-ion-select {
-    font-size: 14px;
-    color: white;
-}
-ion-back-button {
-    text-align: left;
-}
-.resultsList {
-    opacity: 1;
-    font-size: 20px;
+.longLabel {
+  font-size: 12px;
 }
 .notes {
     font-size: 15px;
@@ -73,12 +97,9 @@ ion-back-button {
     padding: 10px;
 }
 #resultButton{
-     --background: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
     display: block;
     margin-bottom: 1rem;
     margin-top: 1rem;
-    background-color: rgb(255, 255, 255);
 }
 #picture {
   display: block;
@@ -87,11 +108,11 @@ ion-back-button {
   width: 15%;
 }
 #header {
-    padding: 2rem;
+    padding: 1rem;
     font-size: 25px;
     display: block;
-    margin-top: 0.5rem;
 }
 #buttonItem {
-    margin-left: 1rem;
+    margin-top: 2rem;
+    margin-left: 0.5rem;
 }
