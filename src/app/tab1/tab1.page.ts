@@ -30,7 +30,6 @@ export class Tab1Page {
   public casingODvals;
   public tubingTableVals: {};
   public displayedResults = [];
-  //public objectsExported = [];
 
   constructor(private storage: Storage, private route: Router) {}
   // **********************************INPUT CAPTURE AND DATA PREP ***********************************
@@ -134,11 +133,28 @@ export class Tab1Page {
     this.displayedResults[10] = this.results[10] = this.results[11] * this.results[5];
     this.displayedResults[12] = this.results[12] = this.results[10] / this.results[4];
 
-    var timeOutputMins = this.plugSettingDepth / this.wirelineRunSpeed;
-    var timeOutputHours = timeOutputMins / 60;
-    this.displayedResults[13] = this.results[13] = timeOutputMins;
-    this.displayedResults[14] = this.results[14] = timeOutputMins + this.timeAtSurface;
-    this.displayedResults[15] = this.results[15] = this.displayedResults[14] * this.results[11];
+    var timeOutputMinsTotal = (this.plugSettingDepth / this.wirelineRunSpeed);
+    var timeOutputHoursTotal = timeOutputMinsTotal / 60;
+    var timeOutputHours = Math.floor(timeOutputHoursTotal);
+    var timeOutputMins = (timeOutputHoursTotal - timeOutputHours) * 60;
+
+    this.displayedResults[13] = this.results[13] = timeOutputHours;
+    this.displayedResults[14] = this.results[14] = timeOutputMins;
+
+    timeOutputHoursTotal = (timeOutputMinsTotal + this.timeAtSurface) / 60;
+    timeOutputHours = Math.floor(timeOutputHoursTotal);
+    timeOutputMins = (timeOutputHoursTotal - timeOutputHours) * 60;
+
+    this.displayedResults[15] = this.results[15] = timeOutputHours;
+    this.displayedResults[16] = this.results[16] = timeOutputMins;
+
+    timeOutputHoursTotal = (this.plugSettingDepth / this.wirelineRunSpeed) + this.timeAtSurface;
+    timeOutputHoursTotal = (this.results[11] * timeOutputHoursTotal) / 60;
+    timeOutputHours = Math.floor(timeOutputHoursTotal);
+    timeOutputMins = (timeOutputHoursTotal - timeOutputHours) * 60;
+
+    this.displayedResults[17] = this.results[17] = timeOutputHours;
+    this.displayedResults[18] = this.results[18] = timeOutputMins;
 
     // Set data in storage to be used in Tab 2
     this.storage.set('tubingFillHeight', this.displayedResults[0]);
@@ -148,7 +164,7 @@ export class Tab1Page {
     this.storage.set('casingCapacity', this.displayedResults[4]);
     this.storage.set('totalBailerVol', this.displayedResults[5]);
     this.storage.set('casingFillHeight', this.displayedResults[6]);
-    this.displayedResults[7] = Math.ceil(this.displayedResults[7]);
+    this.displayedResults[7] = Math.round(this.displayedResults[7]);
     this.storage.set('cementPlugDelta', this.displayedResults[7]);
     this.storage.set('cementHeightRequired', this.displayedResults[8]);
     this.displayedResults[9] = Number(this.displayedResults[9]).toFixed(2);
@@ -159,10 +175,15 @@ export class Tab1Page {
     this.storage.set('totalBailerRuns', this.displayedResults[11]);
     this.displayedResults[12] = Number(this.displayedResults[12]).toFixed(2);
     this.storage.set('cementHeight', this.displayedResults[12]);
-    this.storage.set('operatingTime', this.displayedResults[13]);
-    this.storage.set('perRunTime', this.displayedResults[14]);
-    this.displayedResults[15] = Math.ceil(this.displayedResults[15]);
-    this.storage.set('bailingRunTime', this.displayedResults[15]);
+    this.storage.set('operatingTimeHours', this.displayedResults[13]);
+    this.displayedResults[14] = Math.round(this.displayedResults[14])
+    this.storage.set('operatingTimeMins', this.displayedResults[14]);
+    this.storage.set('perRunTimeHours', this.displayedResults[15]);
+    this.displayedResults[16] = Math.round(this.displayedResults[16])
+    this.storage.set('perRunTimeMins', this.displayedResults[16]);
+    this.displayedResults[18] = Math.round(this.displayedResults[18]);
+    this.storage.set('bailingRunTimeHours', this.displayedResults[17]);
+    this.storage.set('bailingRunTimeMins', this.displayedResults[18]);
     this.route.navigate(['/dumpBailHeight/tab2']);
   }
 
@@ -186,9 +207,12 @@ export class Tab1Page {
       /* 10 Cement Dumped (If full Bailer)(Gals)": */ 0,
       /* 11 Total Bailer Runs Required": */ 0,
       /* 12 Cement Height (If full Bailers used)": */ 0,
-      /* 13 Inhole Per Run Operating Time": */ 0,
-      /* 14 Total Per Run Round Trip Time": */ 0,
-      /* 15 Total Bailing Round Trip Time": */ 0,
+      /* 13 Inhole Per Run Operating Time Hours": */ 0,
+      /* 14 Inhole Per Run Operating Time Mins": */ 0,
+      /* 15 Total Per Run Round Trip Time Hours": */ 0,
+      /* 16 Total Per Run Round Trip Time Mins": */ 0,
+      /* 17 Total Bailing Round Trip Time Hours": */ 0,
+      /* 18 Total Bailing Round Trip Time Mins": */ 0,
     ];
     // list used to store rounded values to be displayed. Same as list above, except its rounded 
     this.displayedResults = [
@@ -205,9 +229,12 @@ export class Tab1Page {
       /* 10 Cement Dumped (If full Bailer)(Gals)": */ 0,
       /* 11 Total Bailer Runs Required": */ 0,
       /* 12 Cement Height (If full Bailers used)": */ 0,
-      /* 13 Inhole Per Run Operating Time": */ 0,
-      /* 14 Total Per Run Round Trip Time": */ 0,
-      /* 15 Total Bailing Round Trip Time": */ 0,
+      /* 13 Inhole Per Run Operating Time Hours": */ 0,
+      /* 14 Inhole Per Run Operating Time Mins": */ 0,
+      /* 15 Total Per Run Round Trip Time Hours": */ 0,
+      /* 16 Total Per Run Round Trip Time Mins": */ 0,
+      /* 17 Total Bailing Round Trip Time Hours": */ 0,
+      /* 18 Total Bailing Round Trip Time Mins": */ 0,
     ];
     // list for selected values from dropdown inputs
     this.dropdownInputsTable = [];

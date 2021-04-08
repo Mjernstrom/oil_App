@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
     const { username, password }  = this;
     this.afAuth.signInWithEmailAndPassword(username, password)
       .then(user => {
-          this.route.navigate(['tabs']);
+          this.route.navigate(['directory']);
       }).catch(error => {
           this.presentLoginError();
       })

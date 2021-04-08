@@ -33,12 +33,18 @@ export class Tab2Page {
   public totalBailerRuns;
   public cementHeight$;
   public cementHeight;
-  public operatingTime$;
-  public operatingTime;
-  public perRunTime$;
-  public perRunTime;
-  public bailingRunTime$;
-  public bailingRunTime;
+  public operatingTimeHours$;
+  public operatingTimeHours;
+  public operatingTimeMins$;
+  public operatingTimeMins;
+  public perRunTimeHours$;
+  public perRunTimeHours;
+  public perRunTimeMins$;
+  public perRunTimeMins;
+  public bailingRunTimeHours$;
+  public bailingRunTimeHours;
+  public bailingRunTimeMins$;
+  public bailingRunTimeMins;
 
   
   constructor(private storage: Storage) {
@@ -70,11 +76,17 @@ export class Tab2Page {
       this.totalBailerRuns$.then(val => this.totalBailerRuns = val);
       this.cementHeight$ = this.storage.get('cementHeight');
       this.cementHeight$.then(val => this.cementHeight = val);
-      this.operatingTime$ = this.storage.get('operatingTime');
-      this.operatingTime$.then(val => this.operatingTime = val);
-      this.perRunTime$ = this.storage.get('perRunTime');
-      this.perRunTime$.then(val => this.perRunTime = val);
-      this.bailingRunTime$ = this.storage.get('bailingRunTime');
-      this.bailingRunTime$.then(val => this.bailingRunTime = val);
+      this.operatingTimeHours$ = this.storage.get('operatingTimeHours');
+      this.operatingTimeHours$.then(val => this.operatingTimeHours = val);
+      this.operatingTimeMins$ = this.storage.get('operatingTimeMins');
+      this.operatingTimeMins$.then(val => this.operatingTimeMins = val);
+      this.perRunTimeHours$ = this.storage.get('perRunTimeHours');
+      this.perRunTimeHours$.then(val => this.perRunTimeHours = val);
+      this.perRunTimeMins$ = this.storage.get('perRunTimeMins');
+      this.perRunTimeMins$.then(val => this.perRunTimeMins = val);
+      this.bailingRunTimeHours$ = this.storage.get('bailingRunTimeHours');
+      this.bailingRunTimeHours$.then(val => this.bailingRunTimeHours = val);
+      this.bailingRunTimeMins$ = this.storage.get('bailingRunTimeMins');
+      this.bailingRunTimeMins$.then(val => this.bailingRunTimeMins = val);
     }
 }
